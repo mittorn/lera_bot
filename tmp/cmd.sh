@@ -1,1 +1,1 @@
-sudo ping -c 5 vk.com
+cat /home/pid/lera_bot/system/help
