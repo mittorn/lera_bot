@@ -1,0 +1,5 @@
+simplejson 
+requests 
+untangle 
+psutil
+pillow==3.3.1
