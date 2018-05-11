@@ -12,7 +12,7 @@ import untangle
 import urllib.parse
 token = open('system/token','r').read()
 token = token.split('\n')[0]
-kb_name = ['валера','лера','пидор','пидр']
+kb_name = ['лера','валера','пидор','пидр']
 def apisay(text,toho,torep):
 	param = (('v', '5.68'), ('peer_id', toho),('access_token',token),('message',text),('forward_messages',torep))
 	result = requests.post('https://api.vk.com/method/messages.send', data=param)
@@ -23,7 +23,7 @@ def exitgame():
 open('system/msgs','w').write('')
 data = requests.get('https://api.vk.com/method/messages.getLongPollServer?access_token='+str(token)+'&v=5.68&lp_version=2').text
 data = json.loads(data)['response']
-def evalcmds(directory,toho,torep):
+def evalcmds(directory,toho,torep,answ):
 	dir = os.listdir(directory)
 	#print(dir)
 	for plugnum in range(len(dir)):
@@ -34,7 +34,7 @@ print('Инициализация бота завершена')
 while True:
 	try:
 		response = requests.get('https://{server}?act=a_check&key={key}&ts={ts}&wait=20&mode=2&version=2'.format(server=data['server'], key=data['key'], ts=data['ts'])).json() 
-		try:
+		try: 
 			updates = response['updates'];
 		except KeyError:
 			data = requests.get('https://api.vk.com/method/messages.getLongPollServer?access_token='+str(token)+'&v=5.68&lp_version=2').text
@@ -63,13 +63,15 @@ while True:
 							thr.start()
 					###game
 					open('system/msgs','a+').write(str(result)+'\n')
-					result[5] = result[5].lower()
+					#result[5] = result[5].lower()
 					answ = result[5].split(' ')
 					kb_cmd = json.loads(open('system/cmds','r').read())
 					#print(kb_cmd['default'])
 					if len(answ) > 1:
+						answ[0] = answ[0].lower()
+						answ[1] = answ[1].lower()
 						if (str(userid) not in game_module['active_users'] and (answ[0] in kb_name) and ((answ[1] in kb_cmd["default"]) or (answ[1] in kb_cmd["vip"]) or (answ[1] in kb_cmd["admin"]))):
-							print('[Упоминание кб в '+str(toho)+']')
+							print('[Упоминание Леры в '+str(toho)+']')
 							answ_text = result[5].split(' ')
 							if len(answ_text) >2:
 								answ_text.remove(answ_text[0])
@@ -78,7 +80,7 @@ while True:
 								answ_text = ''
 							answ_text = ' '.join(answ_text)
 							try:
-								thr = threading.Thread(target=evalcmds,args=('plugins/default',toho,torep))
+								thr = threading.Thread(target=evalcmds,args=('plugins/default',toho,torep,answ))
 								thr.start()
 							except KeyError:
 								pass
@@ -86,7 +88,7 @@ while True:
 							adminlist = json.loads(open('system/admin','r').read())
 							if str(userid) in viplist:
 								try:
-									thr1 = threading.Thread(target=evalcmds,args=('plugins/vip',toho,torep))
+									thr1 = threading.Thread(target=evalcmds,args=('plugins/vip',toho,torep,answ))
 									thr1.start()
 								except KeyError:
 									pass
@@ -95,15 +97,15 @@ while True:
 									apisay('Тебя нет в вайтлисте чтоб юзать эту команду, пуся',toho,torep)
 							if str(userid) in adminlist:
 								try:
-									thr1 = threading.Thread(target=evalcmds,args=('plugins/admin',toho,torep))
+									thr1 = threading.Thread(target=evalcmds,args=('plugins/admin',toho,torep,answ))
 									thr1.start()
 								except KeyError:
 									pass
 							else:
 								if answ[1] in kb_cmd['admin']:
-									apisay('А ты что тут забыл? Совсем охуел?',toho,torep)
+									apisay('Ты что тут забыл? Ты охуел?',toho,torep)
 						if ((answ[0] in kb_name) and (answ[1] not in kb_cmd["default"]) and (answ[1] not in kb_cmd["vip"]) and (answ[1] not in kb_cmd["admin"]) and (str(userid) not in game_module['active_users'])):
-							blacklistcmds = ['гиф1']
+							blacklistcmds = ['гиф1','преакт1','цитата1','гцитата1']
 							if answ[1] not in blacklistcmds:
 								answtext = result[5].split(' ')
 								answtext.remove(answtext[0])
