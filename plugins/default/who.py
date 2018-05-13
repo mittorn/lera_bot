@@ -13,6 +13,6 @@ if (answ[1]=='кто'):
 						name = json.loads(name.text)
 						name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
 						if (random.randint(0,1)==0):
-							apisay('Есть вероятность что это - '+name,toho,torep)
+							apisay('Есть вероятность, что это - '+name,toho,torep)
 						else:
-							apisay('Я уверена это у нас '+name,toho,torep)
+							apisay('Я уверен, это у нас '+name,toho,torep)

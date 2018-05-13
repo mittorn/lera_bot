@@ -20,7 +20,7 @@ if answ[1] == 'музыка':
 			info = info+'audio'+str(res['response']['items'][k]['owner_id'])+'_'+str(res['response']['items'][k]['id'])+','
 			fcount += 1
 
-		param = (('v', '5.74'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Музыка по вашему запросу'),('attachment',info))
+		param = (('v', '5.74'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Вот, как вы и просили:'),('attachment',info))
 		requests.post('https://api.vk.com/method/messages.send', data=param)
 	else:
-		apisay('Музыка по запросу не найдена',toho,torep)
+		apisay('Ничего не найдено:с',toho,torep)

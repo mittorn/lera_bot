@@ -103,7 +103,7 @@ while True:
 									pass
 							else:
 								if answ[1] in kb_cmd['admin']:
-									apisay('Ты что тут забыл? Ты охуел?',toho,torep)
+									apisay('А ты что тут забыл? Ты охуел?',toho,torep)
 						if ((answ[0] in kb_name) and (answ[1] not in kb_cmd["default"]) and (answ[1] not in kb_cmd["vip"]) and (answ[1] not in kb_cmd["admin"]) and (str(userid) not in game_module['active_users'])):
 							blacklistcmds = ['гиф1','преакт1','цитата1','гцитата1']
 							if answ[1] not in blacklistcmds:

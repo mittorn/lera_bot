@@ -7,7 +7,7 @@ if answ[1] == 'бура':
 		try:
 			parse = untangle.parse('http://safebooru.org/index.php?page=dapi&s=post&q=index&limit=100&tags='+str(r34text))
 			randnum = random.randint(0,len(parse.posts.post))
-			mess = 'Бурятские артики по запросу<br>('+str(randnum)+'/'+str(len(parse.posts.post))+')<br>----------<br>Остальные теги: '+parse.posts.post[randnum]['tags']
+			mess = 'Аниме пикча по запросу<br>('+str(randnum)+'/'+str(len(parse.posts.post))+')<br>----------<br>Остальные теги: '+parse.posts.post[randnum]['tags']
 			parse = parse.posts.post[randnum]['file_url']
 			parse = parse.replace('//','http://')
 			pic = requests.get(parse).content

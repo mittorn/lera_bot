@@ -11,7 +11,7 @@ if answ[1] == 'реакт':
 		parse = re.split(strings[0],parse)
 		randint = random.randint(1,len(parse))
 		parse = re.split(strings[1],parse[randint])[0]
-		mess = 'Дрочи давай'
+		mess = 'Очкредная пикча с реакта'
 		pic = requests.get(parse).content
 		open('tmp/preact.jpg','wb').write(pic)
 		ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
