@@ -12,7 +12,7 @@ import untangle
 import urllib.parse
 token = open('system/token','r').read()
 token = token.split('\n')[0]
-kb_name = ['лера','валера','пидор','пидр']
+kb_name = ['лера','валера','пидор','пидр','лера,','валера,','пидор,','пидр,']
 def apisay(text,toho,torep):
 	param = (('v', '5.68'), ('peer_id', toho),('access_token',token),('message',text),('forward_messages',torep))
 	result = requests.post('https://api.vk.com/method/messages.send', data=param)
@@ -20,6 +20,14 @@ def apisay(text,toho,torep):
 def exitgame():
 	print(str(userid)+' покинул игру '+game_module['active_users'][str(userid)])
 	del game_module['active_users'][str(userid)]
+def sendpic(pic,mess,toho,torep):
+	ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
+	with open('tmp/'+pic, 'rb') as f:
+		ret = requests.post(ret['response']['upload_url'],files={'file1': f}).text
+	ret = json.loads(ret)
+	ret = requests.get('https://api.vk.com/method/photos.saveMessagesPhoto?v=5.68&album_id=-3&server='+str(ret['server'])+'&photo='+ret['photo']+'&hash='+str(ret['hash'])+'&access_token='+token).text
+	ret = json.loads(ret)
+	requests.get('https://api.vk.com/method/messages.send?attachment=photo'+str(ret['response'][0]['owner_id'])+'_'+str(ret['response'][0]['id'])+'&message='+mess+'&v=5.68&forward_messages='+str(torep)+'&peer_id='+str(toho)+'&access_token='+str(token))
 open('system/msgs','w').write('')
 data = requests.get('https://api.vk.com/method/messages.getLongPollServer?access_token='+str(token)+'&v=5.68&lp_version=2').text
 data = json.loads(data)['response']
