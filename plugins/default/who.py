@@ -15,4 +15,4 @@ if (answ[1]=='кто'):
 						if (random.randint(0,1)==0):
 							apisay('Есть вероятность, что это - '+name,toho,torep)
 						else:
-							apisay('Я уверен, это у нас '+name,toho,torep)
+							apisay('Я уверена, это у нас '+name,toho,torep)
