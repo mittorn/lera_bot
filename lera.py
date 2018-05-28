@@ -49,15 +49,16 @@ while True:
 			data = json.loads(data)['response']
 			continue
 		if updates: 
-			for result in updates: 
+			for result in updates:
 				if result[0] == 4:
+					toho = result[3]
+					torep = result[1]
+					exec(open('system/core.py','r').read())
 					if (result[3] < 2000000000):
 						userid = result[3]
 					else:
 						userid = result[6]['from']
-					toho = result[3]
-					torep = result[1]
-					###game
+						###game
 					if (result[3] > 2000000000):
 						if str(userid) in game_module['active_users']:
 							answ_text = result[5].lower()
