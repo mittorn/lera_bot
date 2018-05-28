@@ -7,7 +7,7 @@ import requests
 import json
 import os
 import random
-import datetime
+import time
 import untangle
 import urllib.parse
 token = open('system/token','r').read()
@@ -38,7 +38,7 @@ def evalcmds(directory,toho,torep,answ):
 		exec(open(directory+'/'+str(dir[plugnum]),'r').read())
 game_module = open('system/game_module','r').read()
 game_module = json.loads(game_module)
-print('Инициализация бота завершена')
+print('Лера запущена')
 while True:
 	try:
 		response = requests.get('https://{server}?act=a_check&key={key}&ts={ts}&wait=20&mode=2&version=2'.format(server=data['server'], key=data['key'], ts=data['ts'])).json() 
