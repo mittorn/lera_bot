@@ -89,8 +89,12 @@ while True:
 					#result[5] = result[5].lower()
 					answ = result[5].split(' ')
 					kb_cmd = json.loads(open('system/cmds','r').read())
+					blacklist = json.loads(open('system/blacklist','r').read())
 					#print(kb_cmd['default'])
 					if len(answ) > 1:
+						if str(userid) in blacklist:
+							continue
+							
 						answ[0] = answ[0].lower()
 						answ[1] = answ[1].lower()
 						if (str(userid) not in game_module['active_users'] and (answ[0] in kb_name) and ((answ[1] in kb_cmd["default"]) or (answ[1] in kb_cmd["vip"]) or (answ[1] in kb_cmd["admin"]))):
