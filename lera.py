@@ -28,6 +28,20 @@ def sendpic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.saveMessagesPhoto?v=5.68&album_id=-3&server='+str(ret['server'])+'&photo='+ret['photo']+'&hash='+str(ret['hash'])+'&access_token='+token).text
 	ret = json.loads(ret)
 	requests.get('https://api.vk.com/method/messages.send?attachment=photo'+str(ret['response'][0]['owner_id'])+'_'+str(ret['response'][0]['id'])+'&message='+mess+'&v=5.68&forward_messages='+str(torep)+'&peer_id='+str(toho)+'&access_token='+str(token))
+#Заявки в друзья
+def friends():
+	while True:
+		try:
+			friendslist = requests.post('https://api.vk.com/method/friends.getRequests',data={"access_token":token,"need_viewed":"1","v":"5.68"}).text
+			friendslist = json.loads(friendslist)
+			#print(friendslist)
+			for frcount in range(len(friendslist['response']['items'])):
+				requests.post('https://api.vk.com/method/friends.add',data={"access_token":token,"v":"5.68","user_id":friendslist['response']['items'][frcount]})
+				print('Приняла заявку от id'+str(friendslist['response']['items'][frcount]))
+			time.sleep(30)
+		except Exception as error:
+			print(error)
+threading.Thread(target=friends).start()
 open('system/msgs','w').write('')
 data = requests.get('https://api.vk.com/method/messages.getLongPollServer?access_token='+str(token)+'&v=5.68&lp_version=2').text
 data = json.loads(data)['response']
@@ -126,4 +140,4 @@ while True:
 		adminlist = json.loads(open('system/admin','r').read())
 		print(error)
 		apisay(error,adminlist[0],'')
-	data['ts'] = response['ts'] 
+	data['ts'] = response['ts']
