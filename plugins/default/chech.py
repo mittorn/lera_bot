@@ -14,7 +14,7 @@ if answ[1] == 'чеч':
 		ret = ret['photo_'+str(numlist)]
 		ret = requests.get(ret).content
 		open('tmp/attachment.jpg','wb').write(ret)
-		pic1 = Image.open('attach/img/chech.png')
+		pic1 = Image.open('files/img/chech.png')
 		pic2 = Image.open('tmp/attachment.jpg')
 		pic1 = pic1.resize(pic2.size)
 		pic2 = pic2.convert('RGBA')
