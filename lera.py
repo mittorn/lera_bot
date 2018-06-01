@@ -9,9 +9,9 @@ import random
 import time
 import untangle
 import urllib.parse
-token = open('system/token','r').read()
+token = open('system/cfg/token','r').read()
 token = token.split('\n')[0]
-kb_name = ['лера','валера','пидор','пидр','лера,','валера,','пидор,','пидр,']
+kb_name = json.loads(open('system/cfg/name','r').read())['names']
 def apisay(text,toho,torep):
 	param = (('v', '5.68'), ('peer_id', toho),('access_token',token),('message',text),('forward_messages',torep))
 	result = requests.post('https://api.vk.com/method/messages.send', data=param)
@@ -41,7 +41,7 @@ def friends():
 		except Exception as error:
 			print(error)
 threading.Thread(target=friends).start()
-open('system/msgs','w').write('')
+open('tmp/msgs','w').write('')
 data = requests.get('https://api.vk.com/method/messages.getLongPollServer?access_token='+str(token)+'&v=5.68&lp_version=2').text
 data = json.loads(data)['response']
 def evalcmds(directory,toho,torep,answ):
@@ -66,7 +66,7 @@ while True:
 				if result[0] == 4:
 					toho = result[3]
 					torep = result[1]
-					exec(open('system/core.py','r').read())
+					exec(open('system/auto.py','r').read())
 					if (result[3] < 2000000000):
 						userid = result[3]
 					else:
@@ -84,7 +84,7 @@ while True:
 							thr = threading.Thread(target=evalgames,args=(answ_text,toho,torep))
 							thr.start()
 					###game
-					open('system/msgs','a+').write(str(result)+'\n')
+					open('tmp/msgs','a+').write(str(result)+'\n')
 					#result[5] = result[5].lower()
 					answ = result[5].split(' ')
 					kb_cmd = json.loads(open('system/cmds','r').read())
@@ -111,7 +111,7 @@ while True:
 							except KeyError:
 								pass
 							viplist = json.loads(open('system/vip','r').read())
-							adminlist = json.loads(open('system/admin','r').read())
+							adminlist = json.loads(open('system/cfg/admin','r').read())
 							if str(userid) in viplist:
 								try:
 									thr1 = threading.Thread(target=evalcmds,args=('plugins/vip',toho,torep,answ))
@@ -140,7 +140,7 @@ while True:
 								ret = requests.post('https://isinkin-bot-api.herokuapp.com/1/talk',data=param).json()
 								apisay(ret['text'],result[3],result[1])
 	except Exception as error:
-		adminlist = json.loads(open('system/admin','r').read())
+		adminlist = json.loads(open('system/cfg/admin','r').read())
 		print(error)
 		apisay(error,adminlist[0],'')
 	data['ts'] = response['ts']

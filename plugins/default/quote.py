@@ -22,7 +22,7 @@ if answ[1] == 'цитата':
 	data = '<br>'.join(data)
 	data = data.split('<br>')
 	y = 50+(29*len(data))
-	fnt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 25)
+	fnt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', 25)
 	title = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 30)
 	img = Image.new('RGB', (750, y), color = (255,255,255))
 	d = ImageDraw.Draw(img)

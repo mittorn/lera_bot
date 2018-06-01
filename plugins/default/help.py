@@ -1,2 +1,2 @@
 if answ[1] == 'помощь':
-	apisay(open('system/help','r').read(),toho,torep)
+	apisay(open('files/txt/help','r').read(),toho,torep)
