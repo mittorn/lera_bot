@@ -37,4 +37,4 @@ if answ[1] == 'цитата':
 		#print(offset)
 	d.text((55,5), name, font=title, fill=(0, 0, 0))
 	img.save('tmp/quote.jpg')
-	sendpic('quote.jpg','',toho,torep)
+	sendpic('quote.jpg','',toho,'')

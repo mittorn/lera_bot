@@ -1,5 +1,5 @@
 if answ[1] == 'инфо':
-	apisay(open('files/txt/info','r').read(),toho,torep)
+	apisay(open('files/txt/info','r').read(),toho,'')
 if answ[1] == 'инфа':
 	apisay('Вероятность этого равна '+str(random.randint(0,146))+'%',toho,torep)
 if (answ[1]=='кого'):	
@@ -64,9 +64,9 @@ if (answ[1]=='кто'):
 						else:
 							apisay('Я уверена, это у нас '+name,toho,torep)
 if (answ[1]=='кофейник'):	
-        apisay('http://vkcoffee.operator555.su',toho,torep)
+        apisay('http://vkcoffee.operator555.su',toho,'')
 if answ[1] == 'помощь':
-	apisay(open('files/txt/help','r').read(),toho,torep)
+	apisay(open('files/txt/help','r').read(),toho,'')
 if answ[1] == 'id':
 	param = (('v','5.68'),('access_token',token),('message_ids',torep))
 	ret = requests.post('https://api.vk.com/method/messages.getById',data = param).text
@@ -81,5 +81,5 @@ if answ[1] == 'дата':
 if (answ[0] in kb_name and answ[1] in ['гусь']):
 	apisay(open('system/goose','r').read(),toho,torep)
 if answ[1] == 'цит':
-	apisay(open('files/txt/quotes/quote'+str(random.randint(1,14)),'r').read(),toho,torep)
+	apisay(open('files/txt/quotes/quote'+str(random.randint(1,14)),'r').read(),toho,'')
 
