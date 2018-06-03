@@ -27,6 +27,14 @@ def sendpic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.saveMessagesPhoto?v=5.68&album_id=-3&server='+str(ret['server'])+'&photo='+ret['photo']+'&hash='+str(ret['hash'])+'&access_token='+token).text
 	ret = json.loads(ret)
 	requests.get('https://api.vk.com/method/messages.send?attachment=photo'+str(ret['response'][0]['owner_id'])+'_'+str(ret['response'][0]['id'])+'&message='+mess+'&v=5.68&forward_messages='+str(torep)+'&peer_id='+str(toho)+'&access_token='+str(token))
+def pic(pic,mess,toho,torep):
+	ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
+	with open('files/img/'+pic, 'rb') as f:
+		ret = requests.post(ret['response']['upload_url'],files={'file1': f}).text
+	ret = json.loads(ret)
+	ret = requests.get('https://api.vk.com/method/photos.saveMessagesPhoto?v=5.68&album_id=-3&server='+str(ret['server'])+'&photo='+ret['photo']+'&hash='+str(ret['hash'])+'&access_token='+token).text
+	ret = json.loads(ret)
+	requests.get('https://api.vk.com/method/messages.send?attachment=photo'+str(ret['response'][0]['owner_id'])+'_'+str(ret['response'][0]['id'])+'&message='+mess+'&v=5.68&forward_messages='+str(torep)+'&peer_id='+str(toho)+'&access_token='+str(token))
 #Заявки в друзья
 def friends():
 	while True:
@@ -136,7 +144,7 @@ while True:
 								answtext = result[5].split(' ')
 								answtext.remove(answtext[0])
 								answtext = ' '.join(answtext)
-								param = (('q',answtext),('adminname','кекер'))
+								param = (('q',answtext),('adminname','RomkaZVO'))
 								ret = requests.post('https://isinkin-bot-api.herokuapp.com/1/talk',data=param).json()
 								apisay(ret['text'],result[3],result[1])
 	except Exception as error:
