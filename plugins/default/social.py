@@ -80,4 +80,6 @@ if answ[1] == 'дата':
 	apisay(time.ctime(),toho,torep)
 if (answ[0] in kb_name and answ[1] in ['гусь']):
 	apisay(open('system/goose','r').read(),toho,torep)
+if answ[1] == 'цит':
+	apisay(open('files/txt/quotes/quote'+str(random.randint(1,14)),'r').read(),toho,torep)
 
