@@ -9,6 +9,13 @@ import random
 import time
 import untangle
 import urllib.parse
+import logging
+#немного логов бота
+logging.basicConfig(filename="tmp/bot_log.log", level=logging.INFO)
+logging.debug("This is a debug message")
+logging.info("Informational message")
+logging.error("An error has happened!")
+#начало бота
 token = open('system/cfg/token','r').read()
 token = token.split('\n')[0]
 kb_name = json.loads(open('system/cfg/name','r').read())['names']
@@ -19,6 +26,7 @@ def apisay(text,toho,torep):
 def exitgame():
 	print(str(userid)+' покинул игру '+game_module['active_users'][str(userid)])
 	del game_module['active_users'][str(userid)]
+#Запрос изображения из временной папки (tmp)
 def sendpic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
 	with open('tmp/'+pic, 'rb') as f:
@@ -27,6 +35,7 @@ def sendpic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.saveMessagesPhoto?v=5.68&album_id=-3&server='+str(ret['server'])+'&photo='+ret['photo']+'&hash='+str(ret['hash'])+'&access_token='+token).text
 	ret = json.loads(ret)
 	requests.get('https://api.vk.com/method/messages.send?attachment=photo'+str(ret['response'][0]['owner_id'])+'_'+str(ret['response'][0]['id'])+'&message='+mess+'&v=5.68&forward_messages='+str(torep)+'&peer_id='+str(toho)+'&access_token='+str(token))
+#Запрос изображения из директории изображений (img)
 def pic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
 	with open('files/img/'+pic, 'rb') as f:
@@ -152,3 +161,4 @@ while True:
 		print(error)
 		apisay(error,adminlist[0],'')
 	data['ts'] = response['ts']
+
