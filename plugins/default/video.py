@@ -1,7 +1,4 @@
 if answ[1] == 'видео':
-	if answ_text.find('банк') != -1:
-		apisay('В жопу себе эту банку запихни',toho,torep)
-	else:
 		param = (('v', '5.68'), ('q',answ_text),('count','10'),('access_token',token),('adult','0'),('forward_messages',torep))
 		res = requests.post('https://api.vk.com/method/video.search', data=param)
 		res = json.loads(res.text)
