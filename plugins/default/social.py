@@ -1,7 +1,7 @@
 if answ[1] == 'инфо':
 	apisay(open('files/txt/info','r').read(),toho,'')
 if answ[1] == 'инфа':
-	apisay('Вероятность этого равна '+str(random.randint(0,146))+'%',toho,torep)
+	apisay('Вероятность того, что '+answ_text+' равна '+str(random.randint(0,146))+'%',toho,'')
 if (answ[1]=='кого'):	
 					if (toho < 2000000000):
 						apisay('В личной переписке это не работает. Лишь в конфе',toho,torep)
@@ -17,16 +17,16 @@ if (answ[1]=='кого'):
 						name = json.loads(name.text)
 						name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
 						if (random.randint(0,1)==0):
-							apisay('Предпологаю, что это - '+name,toho,torep)
+							apisay('Есть вероятность, что '+answ_text+ '  - '+name,toho,'')
 						else:
-							apisay('Вангую, это '+name,toho,torep)
+							apisay('Ванную, это '+answ_text+ '  - '+name,toho,'')
 if answ[1] == 'модули':
 	apisay('<br>'.join(dir),toho,torep)
 if (answ[1]=='надо'):
 	if (random.randint(0,1)==0):
-		apisay('Однозначно, нет.',toho,torep)
+		apisay('Однозначно, не надо '+answ_text,toho,'')
 	else:
-		apisay('Да, надо.',toho,torep)
+		apisay('Да, надо '+answ_text,toho,'')
 if (answ[0] in kb_name and answ[1] in ['стат','статус','стата']):
 	text = '[ Статистика ]<br>Система:<br>&#8195;Процессоры:<br>'
 	for idx, cpu in enumerate(psutil.cpu_percent(interval=1, percpu=True)):
@@ -60,11 +60,11 @@ if (answ[1]=='кто'):
 						name = json.loads(name.text)
 						name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
 						if (random.randint(0,1)==0):
-							apisay('Есть вероятность, что это - '+name,toho,torep)
+							apisay('Есть вероятность, что это - '+name,toho,'')
 						else:
-							apisay('Я уверена, это у нас '+name,toho,torep)
+							apisay('Я уверена, это у нас '+name,toho,'')
 if (answ[1]=='кофейник'):	
-        apisay('http://vkcoffee.operator555.su',toho,'')
+        apisay('vkcoffee.operator555.su',toho,'')
 if answ[1] == 'помощь':
 	apisay(open('files/txt/help','r').read(),toho,'')
 if answ[1] == 'id':
@@ -81,5 +81,5 @@ if answ[1] == 'дата':
 if (answ[0] in kb_name and answ[1] in ['гусь']):
 	apisay(open('system/goose','r').read(),toho,torep)
 if answ[1] == 'цит':
-	apisay(open('files/txt/quotes/quote'+str(random.randint(1,14)),'r').read(),toho,'')
+	apisay(open('files/txt/quotes/quote'+str(random.randint(1,15)),'r').read(),toho,'')
 
