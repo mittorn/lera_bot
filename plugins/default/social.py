@@ -32,13 +32,20 @@ if (answ[1]=='кого'):
 if answ[1] == 'модули':
 	apisay('<br>'.join(dir),toho,torep)
 if (answ[1]=='надо'):
-	if(answ_text[-1] == '?'):
-		answ_text = answ_text.replace('?', '')
+	
+	try:
+
+		if(answ_text[-1] == '?'):
+			answ_text = answ_text.replace('?', '')
 		
-	if (random.randint(0,1)==0):
-		apisay('Однозначно не надо '+answ_text,toho,torep)
-	else:
-		apisay('Да, надо '+answ_text,toho,torep)
+		if answ_text.find('ли') != -1:
+			answ_text = answ_text.replace('ли', '')
+		if (random.randint(0,1)==0):
+			apisay(answ_text+' ,как по мне, не стоит',toho,torep)
+		else:
+			apisay('Да, надо '+answ_text,toho,torep)
+	except:
+		apisay('Надоел уже, свали', toho, torep)
 if (answ[0] in kb_name and answ[1] in ['стат','статус','стата']):
 	text = '[ Статистика ]<br>Система:<br>&#8195;Процессоры:<br>'
 	for idx, cpu in enumerate(psutil.cpu_percent(interval=1, percpu=True)):
