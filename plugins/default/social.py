@@ -1,7 +1,16 @@
 if answ[1] == 'инфо':
 	apisay(open('files/txt/info','r').read(),toho,'')
 if answ[1] == 'инфа':
-	apisay('Вероятность того, что '+answ_text+' равна '+str(random.randint(0,146))+'%',toho,'')
+	me = False
+	
+	if answ_text.find('ты') == 0:
+		answ_text = answ_text.replace('ты ', 'я ')
+		me = True
+		
+	if answ_text.find('я') == 0 and me == False:
+		answ_text = answ_text.replace('я ', 'ты ')
+	
+	apisay('Вероятность того, что '+answ_text+' равна '+str(random.randint(0,146))+'%',toho,torep)
 if (answ[1]=='кого'):	
 					if (toho < 2000000000):
 						apisay('В личной переписке это не работает. Лишь в конфе',toho,torep)
@@ -63,9 +72,9 @@ if (answ[1]=='кто'):
 						name = json.loads(name.text)
 						name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
 						if (random.randint(0,1)==0):
-							apisay('Есть вероятность, что это - '+name,toho,'')
+							apisay('Есть вероятность, что '+answ_text+ ' - '+name,toho,'')
 						else:
-							apisay('Я уверена, это у нас '+name,toho,'')
+							apisay('Я уверена, '+answ_text+' у нас это '+name,toho,'')
 if (answ[1]=='кофейник'):	
         apisay('vkcoffee.operator555.su',toho,'')
 if answ[1] == 'помощь':
