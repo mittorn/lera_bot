@@ -7,8 +7,8 @@ if answ[1] == 'видео':
 		res = json.loads(res.text)
 		info = ''
 		if (res['response']['count'] != 0):
-			for k in range(len(res['response']['items'])-1):
-				info = info+'video'+str(res['response']['items'][k]['owner_id'])+'_'+str(res['response']['items'][k]['id'])+','
+			for item in res['response']['items']:
+				info = info+'video'+str(item['owner_id'])+'_'+str(item['id'])+','
 			param = (('v', '5.68'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Видео по вашему запросу'),('attachment',info))
 			requests.post('https://api.vk.com/method/messages.send', data=param)
 		else:
