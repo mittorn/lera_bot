@@ -10,7 +10,7 @@ if answ[1] == 'инфа':
 	if answ_text.find('я') == 0 and me == False:
 		answ_text = answ_text.replace('я ', 'ты ')
 	
-	apisay('Вероятность того, что '+answ_text+' равна '+str(random.randint(0,146))+'%',toho,torep)
+	apisay('Вероятность того, что '+answ_text+' равна '+str(random.randint(0,146))+'%',toho,'')
 if (answ[1]=='кого'):	
 					if (toho < 2000000000):
 						apisay('В личной переписке это не работает. Лишь в конфе',toho,torep)
