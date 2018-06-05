@@ -43,3 +43,7 @@ if answ[1] == 'разбан':
 	if isFound == True:
 		apisay('Пользователь '+id+' был удален из ЧС!', toho, torep)
 		requests.get('https://api.vk.com/method/account.unban?access_token='+str(token)+'&owner_id='+id+'&v=5.68&lp_version=2')
+if answ[1] == 'чс':
+	blacklist = json.load(open('system/blacklist'))
+	
+	apisay('https://vk.com/id'+'\nhttps://vk.com/id'.join(blacklist), toho, torep)
