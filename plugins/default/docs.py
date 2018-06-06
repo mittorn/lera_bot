@@ -36,7 +36,7 @@ if answ[1] == 'гиф':
 				continue
 			if item['title'].lower().find('1man1jar') != -1:
 				continue
-			if item['ext']=='gif'):
+			if item['ext']=='gif':
 				info = info+'doc'+str(item['owner_id'])+'_'+str(item['id'])+','
 				fcount = fcount+1
 		param = (('v', '5.68'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Гифки по вашему запросу'),('attachment',info))
