@@ -6,6 +6,9 @@ if answ[1] == 'инфа':
 	if answ_text.find('ты') == 0:
 		answ_text = answ_text.replace('ты ', 'я ')
 		me = True
+	
+	if(answ_text[-1] == '?'):
+		answ_text = answ_text.replace('?', '')
 		
 	if answ_text.find('я') == 0 and me == False:
 		answ_text = answ_text.replace('я ', 'ты ')
@@ -41,9 +44,9 @@ if (answ[1]=='надо'):
 		if answ_text.find('ли') != -1:
 			answ_text = answ_text.replace('ли', '')
 		if (random.randint(0,1)==0):
-			apisay(answ_text+' ,как по мне, не стоит',toho,torep)
+			apisay(answ_text+' ,как по мне, не стоит',toho,'')
 		else:
-			apisay('Да, надо '+answ_text,toho,torep)
+			apisay('Да, надо '+answ_text,toho,'')
 	except:
 		apisay('Надоел уже, свали', toho, torep)
 if (answ[0] in kb_name and answ[1] in ['стат','статус','стата']):
@@ -68,20 +71,25 @@ if (answ[1]=='кто'):
 					if (toho < 2000000000):
 						apisay('В личной переписке это не работает. Лишь в конфе',toho,torep)
 					else:
-						resapi = toho-2000000000;
-						text = answ
-						param = (('v', '5.68'), ('chat_id',resapi),('access_token',token))
-						res = requests.post('https://api.vk.com/method/messages.getChatUsers', data=param)
-						res = json.loads(res.text)
-						rand = random.randint(0,len(res['response'])-1)
-						param = (('v', '5.68'), ('user_ids',res['response'][rand]),('access_token',token))
-						name = requests.post('https://api.vk.com/method/users.get', data=param)
-						name = json.loads(name.text)
-						name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
-						if (random.randint(0,1)==0):
-							apisay('Есть вероятность, что '+answ_text+ ' - '+name,toho,'')
-						else:
-							apisay('Я уверена, '+answ_text+' у нас это '+name,toho,'')
+						try:
+							if(answ_text[-1] == '?'):
+								answ_text = answ_text.replace('?', '')
+							resapi = toho-2000000000;
+							text = answ
+							param = (('v', '5.68'), ('chat_id',resapi),('access_token',token))
+							res = requests.post('https://api.vk.com/method/messages.getChatUsers', data=param)
+							res = json.loads(res.text)
+							rand = random.randint(0,len(res['response'])-1)
+							param = (('v', '5.68'), ('user_ids',res['response'][rand]),('access_token',token))
+							name = requests.post('https://api.vk.com/method/users.get', data=param)
+							name = json.loads(name.text)
+							name = name['response'][0]['first_name']+' '+name['response'][0]['last_name']
+							if (random.randint(0,1)==0):
+								apisay('Есть вероятность, что '+answ_text+ ' - '+name,toho,'')
+							else:
+								apisay('Я уверена, '+answ_text+' у нас это '+name,toho,'')
+						except:
+							apisay('Ты!', toho, torep)
 if (answ[1]=='кофейник'):	
         apisay('vkcoffee.operator555.su',toho,'')
 if answ[1] == 'помощь':
@@ -99,6 +107,13 @@ if answ[1] == 'дата':
 	apisay(time.ctime(),toho,torep)
 if (answ[0] in kb_name and answ[1] in ['гусь']):
 	apisay(open('system/goose','r').read(),toho,torep)
+#Потихоньку учу Леру своим ответам.
 if answ[1] == 'цит':
-	apisay(open('files/txt/quotes/quote'+str(random.randint(1,15)),'r').read(),toho,'')
-
+	quotes = json.loads(open('files/txt/quotes/quote_cit','r').read())
+	apisay(quotes[random.randint(0,len(quotes)-1)],toho,'')
+if (answ[0] in kb_name and answ[1] in ['няша','молодец','крутая']):
+	quotes = json.loads(open('files/txt/quotes/quote_positive','r').read())
+	apisay(quotes[random.randint(0,len(quotes)-1)],toho,'')
+if (answ[0] in kb_name and answ[1] in ['соси','пошла','шлюха','пидор']):
+	quotes = json.loads(open('files/txt/quotes/quote_negative','r').read())
+	apisay(quotes[random.randint(0,len(quotes)-1)],toho,'')

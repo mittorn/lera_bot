@@ -26,7 +26,7 @@ def apisay(text,toho,torep):
 def exitgame():
 	print(str(userid)+' покинул игру '+game_module['active_users'][str(userid)])
 	del game_module['active_users'][str(userid)]
-#Запрос изображения из временной папки (tmp)
+#Запрещенные слова
 def inblacklist(answ):
 	blacklist_words = json.loads(open('system/blacklist_words','r').read())
 	for i in range(len(blacklist_words)):
@@ -36,7 +36,7 @@ def inblacklist(answ):
 		except:
 			0
 	return False
-
+#Запрос изображения из директории изображений (tmp)
 def sendpic(pic,mess,toho,torep):
 	ret = requests.get('https://api.vk.com/method/photos.getMessagesUploadServer?access_token={access_token}&v=5.68'.format(access_token=token)).json()
 	with open('tmp/'+pic, 'rb') as f:
@@ -121,7 +121,7 @@ while True:
 						if str(userid) in blacklist:
 							continue
 						if inblacklist(answ) == True:
-							apisay('Запрещенное для запроса слово', toho, torep)	
+							apisay('Запрещенное для запроса слово', toho,'')	
 							continue
 						answ[0] = answ[0].lower()
 						if answ[0].find(',') != -1:
