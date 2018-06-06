@@ -5,10 +5,16 @@ if answ[1] == 'доки':
 	if (res['response']['count'] != 0):
 		fcount=0
 		info = ''
-		for k in range(len(res['response']['items'])-1):
-			if(fcount == 10):
+		for item in res['response']['items']:
+			if fcount == 10:
 				break
-			info = info+'doc'+str(res['response']['items'][k]['owner_id'])+'_'+str(res['response']['items'][k]['id'])+','
+			if item['id'] in (474084484,444393573,337586976,467187768):
+				continue
+			if item['title'].lower().find('theync') != -1:
+				continue
+			if item['title'].lower().find('1man1jar') != -1:
+				continue
+			info = info+'doc'+str(item['owner_id'])+'_'+str(item['id'])+','
 			fcount = fcount+1
 		param = (('v', '5.68'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Документы по вашему запросу'),('attachment',info))
 		requests.post('https://api.vk.com/method/messages.send', data=param)
@@ -21,11 +27,17 @@ if answ[1] == 'гиф':
 	if (res['response']['count'] != 0):
 		fcount=0
 		info = ''
-		for k in range(len(res['response']['items'])-1):
-			if(fcount == 10):
+		for item in res['response']['items']:
+			if fcount == 10:
 				break
-			if (res['response']['items'][k]['ext']=='gif'):
-				info = info+'doc'+str(res['response']['items'][k]['owner_id'])+'_'+str(res['response']['items'][k]['id'])+','
+			if item['id'] in (474084484,444393573,337586976,467187768):
+				continue
+			if item['title'].lower().find('theync') != -1:
+				continue
+			if item['title'].lower().find('1man1jar') != -1:
+				continue
+			if item['ext']=='gif'):
+				info = info+'doc'+str(item['owner_id'])+'_'+str(item['id'])+','
 				fcount = fcount+1
 		param = (('v', '5.68'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Гифки по вашему запросу'),('attachment',info))
 		requests.post('https://api.vk.com/method/messages.send', data=param)
@@ -38,10 +50,10 @@ if answ[1] == 'фото':
 	if (res['response']['count'] != 0):
 		fcount=0
 		info = ''
-		for k in range(len(res['response']['items'])-1):
-			if(fcount == 10):
+		for item in res['response']['items']:
+			if fcount == 10:
 				break
-			info = info+'photo'+str(res['response']['items'][k]['owner_id'])+'_'+str(res['response']['items'][k]['id'])+','
+			info = info+'photo'+str(item['owner_id'])+'_'+str(item['id'])+','
 			fcount = fcount+1
 		param = (('v', '5.68'), ('peer_id',toho),('access_token',token),('forward_messages',torep),('message','Фотографии по вашему запросу'),('attachment',info))
 		requests.post('https://api.vk.com/method/messages.send', data=param)
